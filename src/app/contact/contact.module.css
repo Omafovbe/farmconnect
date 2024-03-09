@@ -45,3 +45,14 @@
     text-transform: uppercase;
     color: #fff;
 }
+
+@media (max-width: 768px) {
+    
+    .container{
+        flex-direction: column;
+    }
+
+    .formContainer{
+        width: 100%;
+    }
+}

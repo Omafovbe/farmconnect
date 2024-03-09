@@ -7,7 +7,7 @@
 .imgContainer{
     flex: 1;
     position: relative;
-    
+    z-index: -1;
     width: 100%;
 }
 
@@ -16,11 +16,25 @@
 }
 
 
-
 .txtContainer {
     flex: 2;
     display: flex;
     flex-direction: column;
     height: calc(100vh - 200px);
     gap: 50px;
+    margin-bottom: 50px;
+}
+
+.txtContainer p {
+    text-align: justify;
+}
+
+@media (max-width: 768px){
+    .container{
+        flex-direction: column;
+    }
+
+    .img{
+        width: 100%
+    }
 }
