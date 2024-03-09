@@ -1,7 +1,22 @@
 import Image from "next/image"
 import styles from "./singleItem.module.css"
+import { Suspense } from "react"
+import PostUser from "@/components/postUser/postUser"
 
-const SingleItem = () => {
+const getData = async (slug) => {
+  // const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`, {next:{revalidate:3600}})
+  // const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`, {cache:'no-store})
+  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`)
+  if (!res.ok)
+    throw new Error('Could not Fetch Company details')
+
+  return res.json()
+}
+
+const SingleItem = async ({ params }) => {
+
+  const comInfo = await getData(params.slug)
+
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
@@ -14,16 +29,22 @@ const SingleItem = () => {
         />
       </div>
       <div className={styles.txtContainer}>
-        <h1 className={styles.title}>Title</h1>
-        <p className={styles.content}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere alias
-          autem accusamus voluptatem temporibus ea quaerat laborum ipsum
-          dolores, consectetur maxime commodi odio dolore voluptates? Incidunt
-          reprehenderit et delectus sunt. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Eius, vitae mollitia nemo qui pariatur rerum
-          molestiae ipsum dolorum, asperiores totam quidem quod quos officiis
-          officia repellat cumque placeat! Excepturi, cumque.
-        </p>
+        <h1 className={styles.title}>{comInfo.title}</h1>
+        <div className={styles.detail}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <PostUser userId={comInfo.userId} />
+          </Suspense>
+
+          <div className={styles.detailText}>
+            <span className={styles.detailTitle}>Published</span>
+            <span className={styles.detailValue}>
+              {Date.now().toString().slice(4, 16)}
+            </span>
+          </div>
+        </div>      
+        <div className={styles.content}>
+          {comInfo.body}
+        </div>
       </div>
     </div>
   )

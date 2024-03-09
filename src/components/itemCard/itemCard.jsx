@@ -2,11 +2,12 @@ import Image from "next/image"
 import styles from "./itemCard.module.css"
 import Link from "next/link"
 
-const ItemCard = () => {
+const ItemCard = ({ bus }) => {
+  const busID = bus.id
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <Link href="/business/post">
+        <Link href={`/business/${busID}`}>
           {/* <Image src='https://dummyimage.com/640x480/444/fff' alt='' fill /> */}
           <Image
             src="https://placebeard.it/640/480"
@@ -17,10 +18,11 @@ const ItemCard = () => {
         </Link>
       </div>
       <div className={styles.bottom}>
-        <div className={styles.title}>
-          <Link href="/business/post">Eboka Farms</Link>
+        <div>
+          <Link href={`/business/${busID}`} className={styles.title} >{bus.company.name}</Link>
+          <p>{ bus.company.catchPhrase}</p>
         </div>
-        <div className={styles.location}>Enugu</div>
+        <div className={styles.location}>{bus.address.city}</div>
       </div>
     </div>
   )
