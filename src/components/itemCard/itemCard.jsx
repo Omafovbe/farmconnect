@@ -19,10 +19,10 @@ const ItemCard = ({ bus }) => {
       </div>
       <div className={styles.bottom}>
         <div>
-          <Link href={`/business/${busID}`} className={styles.title} >{bus.company.name}</Link>
-          <p>{ bus.company.catchPhrase}</p>
+          <Link href={`/business/${busID}`} className={styles.title} >Name: {bus.company.name}</Link>
+          <p>Bus Info: { bus.company.catchPhrase}</p>
         </div>
-        <div className={styles.location}>{bus.address.city}</div>
+        <div className={styles.location}>Location: {bus.address.city}</div>
       </div>
     </div>
   )
